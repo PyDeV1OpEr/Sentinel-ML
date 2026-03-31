@@ -1,0 +1,42 @@
+pipeline:
+  name: default
+  window_size: 100
+  step_size: 1
+
+preprocessing:
+  normalize: true
+  method: minmax
+  detrend: false
+  decompose_seasonality: false
+
+detectors:
+  - name: zscore
+    enabled: true
+    params:
+      threshold: 3.0
+
+  - name: isolation_forest
+    enabled: true
+    params:
+      contamination: 0.05
+      n_estimators: 100
+
+  - name: spectral_residual
+    enabled: true
+    params:
+      window_size: 24
+      score_threshold: 3.0
+
+ensemble:
+  method: voting
+  min_detectors: 2
+
+alerting:
+  enabled: false
+  webhook_url: ""
+  cooldown_seconds: 300
+  min_severity: warning
+
+storage:
+  enabled: true
+  batch_size: 500

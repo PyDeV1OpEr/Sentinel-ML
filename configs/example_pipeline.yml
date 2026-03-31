@@ -1,0 +1,62 @@
+# Example pipeline with all detectors enabled and alerting configured.
+# Copy this file and modify for your use case.
+
+pipeline:
+  name: full-pipeline
+  window_size: 200
+  step_size: 5
+
+preprocessing:
+  normalize: true
+  method: robust        # robust scaling handles outliers in training data
+  detrend: true         # remove linear trend before detection
+  decompose_seasonality: true
+  seasonal_period: 24   # hourly data with daily seasonality
+
+detectors:
+  - name: zscore
+    enabled: true
+    params:
+      threshold: 3.0
+
+  - name: mad
+    enabled: true
+    params:
+      threshold: 3.5
+
+  - name: isolation_forest
+    enabled: true
+    params:
+      contamination: 0.03
+      n_estimators: 200
+      window_features: 10
+
+  - name: spectral_residual
+    enabled: true
+    params:
+      window_size: 48
+      score_threshold: 3.0
+
+  - name: lstm_autoencoder
+    enabled: true
+    params:
+      hidden_dim: 64
+      n_layers: 2
+      sequence_length: 50
+      epochs: 100
+      lr: 0.001
+      threshold_sigma: 2.5
+
+ensemble:
+  method: voting
+  min_detectors: 3      # need 3 out of 5 detectors to agree
+
+alerting:
+  enabled: true
+  webhook_url: "https://hooks.slack.com/services/YOUR/WEBHOOK/URL"
+  cooldown_seconds: 600   # 10 minute cooldown per series
+  min_severity: warning
+
+storage:
+  enabled: true
+  batch_size: 1000
