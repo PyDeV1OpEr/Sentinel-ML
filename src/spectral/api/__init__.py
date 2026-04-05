@@ -1,3 +1,3 @@
-from spectral.api.schemas import DataPointIn, AnomalyOut, DetectionRequest, DetectionResponse
+from spectral.api.app import create_app
 
-__all__ = ["DataPointIn", "AnomalyOut", "DetectionRequest", "DetectionResponse"]
+__all__ = ["create_app"]
