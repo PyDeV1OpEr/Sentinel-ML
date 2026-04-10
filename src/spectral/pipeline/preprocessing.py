@@ -70,11 +70,11 @@ def decompose_seasonality(
     if period % 2 == 0:
         # for even period, use two-pass average
         kernel = np.ones(period) / period
-        first_pass = np.convolve(data, kernel, mode="same")
-        trend = np.convolve(first_pass, np.array([0.5, 0.5]), mode="same")
+        first_pass = np.convolve(data, kernel, mode="same")  # centered window
+        trend = np.convolve(first_pass, np.array([0.5, 0.5]), mode="same")  # centered window
     else:
         kernel = np.ones(period) / period
-        trend = np.convolve(data, kernel, mode="same")
+        trend = np.convolve(data, kernel, mode="same")  # centered window
 
     # seasonal: average the detrended values by position in cycle
     detrended = data - trend
