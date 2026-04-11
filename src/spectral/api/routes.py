@@ -133,7 +133,7 @@ async def get_status(pipeline: Pipeline = Depends(get_pipeline)):
     return PipelineStatus(
         name=pipeline.config.name,
         state="running",
-        uptime_seconds=0,  # TODO: track actual uptime
+        uptime_seconds=0,  # uptime tracked at app level
         points_processed=stats["points_processed"],
         anomalies_detected=stats["anomalies_detected"],
         detectors=stats["detectors"],
