@@ -104,3 +104,10 @@ class TestGrubbsDetector:
         result = detector.detect(data)
 
         assert result.anomaly_count <= 2
+
+
+class TestDetectorRepr:
+    def test_repr_string(self):
+        det = ZScoreDetector(threshold=3.0)
+        assert "ZScoreDetector" in repr(det)
+        assert "3.0" in repr(det)
