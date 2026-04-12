@@ -41,6 +41,7 @@ class ConnectionManager:
                 "detector": anomaly.detector,
                 "severity": anomaly.severity,
                 "series_id": series_id,
+                "index": anomaly.index,
             },
         }
         payload = json.dumps(message)
