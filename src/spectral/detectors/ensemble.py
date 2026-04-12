@@ -82,7 +82,7 @@ class EnsembleDetector:
         }
 
         logger.info(
-            f"Ensemble({self.method}): {labels.sum()} anomalies "
+            f"Ensemble({self.method}): {int(labels.sum())} anomalies "
             f"from {len(self.detectors)} detectors"
         )
 
