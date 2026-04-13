@@ -91,7 +91,7 @@ class SpectralResidualDetector(BaseDetector):
 
         # normalize to [0, 1]
         max_z = z_saliency.max() if z_saliency.max() > 0 else 1.0
-        scores = np.clip(z_saliency / max_z, 0, 1)
+        scores = np.clip(z_saliency / max_z, 0.0, 1.0)
 
         logger.info(
             f"SpectralResidual: {labels.sum()} anomalies detected, "
