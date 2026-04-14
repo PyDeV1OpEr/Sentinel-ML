@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "spectral"
-version = "0.3.0"
+version = "0.3.1"
 description = "Real-time anomaly detection engine for time-series data"
 readme = "README.md"
 license = "MIT"
