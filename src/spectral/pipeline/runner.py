@@ -130,6 +130,9 @@ class Pipeline:
         """
         data = np.asarray(data, dtype=np.float64)
 
+        if len(data) == 0:
+            return []
+
         if not self._fitted:
             self.fit(data)
 
