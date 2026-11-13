@@ -103,8 +103,8 @@ only when a full window has accumulated, and the pipeline reports the label for 
 
 ### LSTM training and inference
 
-The autoencoder is a two-layer-free design: an encoder LSTM compresses a window, its final
-hidden/cell state seeds a decoder LSTM, and a linear head reconstructs the window. The wrapper
+The autoencoder uses a two-stage encoder–decoder design: an encoder LSTM compresses a window, its
+final hidden/cell state seeds a decoder LSTM, and a linear head reconstructs the window. The wrapper
 implements:
 
 1. **Chronological split.** The last `calibration_fraction` (default 20%) of *windows* is held out
