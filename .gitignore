@@ -13,6 +13,14 @@ env/
 
 data/*.csv
 data/*.parquet
+data/*.json
+artifacts/
+
+# Benchmark evidence is committed; local experiment logs are not.
+reports/*
+!reports/scenario_results.json
+!reports/scenario_results.md
+
 *.pt
 *.pth
 checkpoints/

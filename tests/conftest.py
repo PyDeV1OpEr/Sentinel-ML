@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 import numpy as np
 import pytest
 
@@ -8,7 +10,6 @@ from spectral.config.schema import (
     PreprocessingConfig,
 )
 from spectral.ingestion.base import DataPoint
-from datetime import datetime, timedelta
 
 
 @pytest.fixture

@@ -37,6 +37,8 @@ alerting:
   cooldown_seconds: 300
   min_severity: warning
 
+# Optional: requires PostgreSQL (DATABASE_URL) and `pip install -e .`.
+# Leave disabled for a frictionless local demo.
 storage:
-  enabled: true
+  enabled: false
   batch_size: 500

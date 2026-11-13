@@ -11,6 +11,7 @@ from rich.table import Table
 from spectral import __version__
 
 console = Console()
+err_console = Console(stderr=True)
 
 
 @click.group()
@@ -47,7 +48,7 @@ def detect(file: str, config: str | None, timestamp_col: str, value_col: str, fm
     values = np.array([p.value for p in points])
     timestamps = [p.timestamp for p in points]
 
-    console.print(f"Loaded {len(points)} data points from {file}")
+    err_console.print(f"Loaded {len(points)} data points from {file}")
 
     pipeline = Pipeline(pipeline_config)
     anomalies = pipeline.detect(values, timestamps)
@@ -91,7 +92,7 @@ def detect(file: str, config: str | None, timestamp_col: str, value_col: str, fm
             }
             for a in anomalies
         ]
-        console.print(json.dumps(output, indent=2))
+        click.echo(json.dumps(output, indent=2))
 
     elif fmt == "csv":
         click.echo("timestamp,index,value,score,severity,detector")
@@ -100,8 +101,8 @@ def detect(file: str, config: str | None, timestamp_col: str, value_col: str, fm
             click.echo(f"{ts},{a.index},{a.value:.4f},{a.score:.4f},{a.severity},{a.detector}")
 
     stats = pipeline.stats
-    console.print(
-        f"\n[dim]Processed {stats['points_processed']} points, "
+    err_console.print(
+        f"[dim]Processed {stats['points_processed']} points, "
         f"found {stats['anomalies_detected']} anomalies "
         f"({stats['anomalies_detected']/stats['points_processed']:.1%})[/dim]"
     )

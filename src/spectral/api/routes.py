@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import logging
+import time
 from datetime import datetime
 
-import numpy as np
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
-from spectral.api.dependencies import get_pipeline, get_repository
+from spectral.api.dependencies import get_pipeline, get_repository, get_service
 from spectral.api.schemas import (
     AnomalyOut,
     DataPointBatch,
@@ -15,6 +15,7 @@ from spectral.api.schemas import (
     DetectionResponse,
     PipelineStatus,
 )
+from spectral.api.service import DetectionService
 from spectral.pipeline.runner import Pipeline
 from spectral.storage.repository import AnomalyRepository
 
@@ -23,70 +24,70 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
+def _anomaly_out(result, series_id: str = "default") -> AnomalyOut:
+    return AnomalyOut(
+        timestamp=result.timestamp,
+        value=result.value,
+        score=result.score,
+        detector=result.detector,
+        severity=result.severity,
+        series_id=series_id,
+    )
+
+
+def _require_storage(pipeline: Pipeline) -> None:
+    if not pipeline.config.storage.enabled:
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                "Storage is disabled. Enable storage in the pipeline config and "
+                "set DATABASE_URL to query persisted anomalies."
+            ),
+        )
+
+
 @router.post("/ingest", response_model=dict)
 async def ingest_data(
     data: DataPointIn | DataPointBatch,
-    pipeline: Pipeline = Depends(get_pipeline),
-    repo: AnomalyRepository = Depends(get_repository),
+    service: DetectionService = Depends(get_service),
 ):
-    """Ingest data points and run real-time detection."""
-    if isinstance(data, DataPointIn):
-        points = [data]
-    else:
-        points = data.points
-
-    anomalies_found = []
-    for point in points:
-        result = pipeline.detect_streaming(
-            value=point.value,
-            timestamp=point.timestamp,
-        )
-        if result:
-            anomalies_found.append(
-                AnomalyOut(
-                    timestamp=result.timestamp,
-                    value=result.value,
-                    score=result.score,
-                    detector=result.detector,
-                    severity=result.severity,
-                    series_id=point.series_id,
-                )
-            )
-
+    """Ingest data points, run streaming detection and notify consumers."""
+    points = [data] if isinstance(data, DataPointIn) else data.points
+    anomalies = await service.ingest(points)
     return {
         "ingested": len(points),
-        "anomalies": [a.model_dump() for a in anomalies_found],
-        "anomaly_count": len(anomalies_found),
+        "anomalies": [
+            _anomaly_out(
+                anomaly, str(anomaly.metadata.get("series_id", "default"))
+            ).model_dump()
+            for anomaly in anomalies
+        ],
+        "anomaly_count": len(anomalies),
     }
 
 
 @router.post("/detect", response_model=DetectionResponse)
 async def detect_batch(
     request: DetectionRequest,
+    service: DetectionService = Depends(get_service),
     pipeline: Pipeline = Depends(get_pipeline),
 ):
     """Run batch anomaly detection on provided values."""
-    values = np.array(request.values)
-    timestamps = request.timestamps
-
-    anomalies = pipeline.detect(values, timestamps)
-
-    anomaly_out = [
-        AnomalyOut(
-            timestamp=a.timestamp,
-            value=a.value,
-            score=a.score,
-            detector=a.detector,
-            severity=a.severity,
-        )
-        for a in anomalies
-    ]
+    anomalies = await service.detect_batch(
+        request.values,
+        request.timestamps,
+        series_id=request.series_id,
+    )
 
     return DetectionResponse(
-        anomalies=anomaly_out,
-        total_points=len(values),
+        anomalies=[
+            _anomaly_out(anomaly, request.series_id) for anomaly in anomalies
+        ],
+        total_points=len(request.values),
         anomaly_count=len(anomalies),
-        anomaly_ratio=len(anomalies) / len(values) if len(values) > 0 else 0,
+        anomaly_ratio=(
+            len(anomalies) / len(request.values) if len(request.values) > 0 else 0
+        ),
         stats=pipeline.stats,
     )
 
@@ -100,9 +101,11 @@ async def query_anomalies(
     detector: str | None = None,
     limit: int = Query(default=100, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
+    pipeline: Pipeline = Depends(get_pipeline),
     repo: AnomalyRepository = Depends(get_repository),
 ):
     """Query stored anomalies with filters."""
+    _require_storage(pipeline)
     records = await repo.query(
         series_id=series_id,
         start=start,
@@ -127,13 +130,18 @@ async def query_anomalies(
 
 
 @router.get("/status", response_model=PipelineStatus)
-async def get_status(pipeline: Pipeline = Depends(get_pipeline)):
+async def get_status(
+    request: Request,
+    pipeline: Pipeline = Depends(get_pipeline),
+):
     """Get current pipeline status."""
     stats = pipeline.stats
+    started = getattr(request.app.state, "started_at", None)
+    uptime = max(0.0, time.monotonic() - started) if started is not None else 0.0
     return PipelineStatus(
         name=pipeline.config.name,
         state="running",
-        uptime_seconds=0,  # uptime tracked at app level
+        uptime_seconds=uptime,
         points_processed=stats["points_processed"],
         anomalies_detected=stats["anomalies_detected"],
         detectors=stats["detectors"],
@@ -147,12 +155,30 @@ async def get_metrics(
     pipeline: Pipeline = Depends(get_pipeline),
     repo: AnomalyRepository = Depends(get_repository),
 ):
-    """Get dashboard-ready metrics and statistics."""
-    stats = pipeline.stats
-    db_stats = await repo.get_stats(series_id=series_id, window_hours=window_hours)
+    """Get dashboard-ready metrics and statistics.
 
+    When storage is disabled the response still contains live pipeline stats
+    and an explicit ``storage_enabled: false`` flag, rather than pretending
+    that an empty database was queried.
+    """
+    stats = pipeline.stats
+    if not pipeline.config.storage.enabled:
+        return {
+            "pipeline": stats,
+            "anomalies": {
+                "total_anomalies": 0,
+                "avg_score": 0.0,
+                "window_hours": window_hours,
+                "per_detector": {},
+            },
+            "window_hours": window_hours,
+            "storage_enabled": False,
+        }
+
+    db_stats = await repo.get_stats(series_id=series_id, window_hours=window_hours)
     return {
         "pipeline": stats,
         "anomalies": db_stats,
         "window_hours": window_hours,
+        "storage_enabled": True,
     }

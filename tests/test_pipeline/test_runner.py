@@ -1,5 +1,4 @@
 import numpy as np
-import pytest
 
 from spectral.config.schema import DetectorConfig, PipelineConfig
 from spectral.pipeline.runner import Pipeline, _severity_from_score

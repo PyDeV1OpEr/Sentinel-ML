@@ -1,0 +1,1886 @@
+{
+  "generated_at": "2026-11-13T03:36:52.595281+00:00",
+  "protocol": "One clean seasonal baseline; every detector is fitted on its first 70%. Scenario A scores the clean held-out 30%; B-H are separate unseen datasets. The LSTM calibration holdout is inside the clean training half. Scenario I is an unlabelled CSV: predictions and scores only.",
+  "parameters": {
+    "points": 1200,
+    "epochs": 100,
+    "hidden_dim": 32,
+    "sequence_length": 30,
+    "seed": 42,
+    "tolerance": 2,
+    "lstm_fit_seconds": 3.937033708905801,
+    "threshold": 0.02986891692251608,
+    "calibration_source": "holdout"
+  },
+  "scenarios": [
+    {
+      "key": "A_clean",
+      "description": "Clean seasonal holdout, no anomalies",
+      "evaluation_source": "held-out 30% of the clean baseline",
+      "summary": {
+        "spike": 0,
+        "drop": 0,
+        "level_shift": 0,
+        "seasonal": 0,
+        "noise_burst": 0,
+        "drift": 0,
+        "missing": 0,
+        "flatline": 0,
+        "events": 0,
+        "anomaly_points": 0
+      },
+      "train_points": 840,
+      "test_points": 360,
+      "rows": [
+        {
+          "scenario": "A_clean",
+          "detector": "Z-Score",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 1.0,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 0,
+          "test_tn": 360,
+          "fit_seconds": 3.77921387553215e-05,
+          "inference_seconds": 3.337510861456394e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "A_clean",
+          "detector": "MAD",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 1.0,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 0,
+          "test_tn": 360,
+          "fit_seconds": 4.575005732476711e-05,
+          "inference_seconds": 2.3374799638986588e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "A_clean",
+          "detector": "Grubbs",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 1.0,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 0,
+          "test_tn": 360,
+          "fit_seconds": 4.5890919864177704e-07,
+          "inference_seconds": 0.0004366249777376652,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "A_clean",
+          "detector": "Isolation Forest",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.9583333333333334,
+          "test_fpr": 0.041666666666666664,
+          "test_tp": 0,
+          "test_fp": 15,
+          "test_fn": 0,
+          "test_tn": 345,
+          "fit_seconds": 0.04547979193739593,
+          "inference_seconds": 0.01606337516568601,
+          "train_anomalies": 42,
+          "test_anomalies": 15
+        },
+        {
+          "scenario": "A_clean",
+          "detector": "Spectral Residual",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 1.0,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 0,
+          "test_tn": 360,
+          "fit_seconds": 1.250067725777626e-06,
+          "inference_seconds": 0.000494958832859993,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "A_clean",
+          "detector": "Ensemble",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 1.0,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 0,
+          "test_tn": 360,
+          "fit_seconds": 0.04072041600011289,
+          "inference_seconds": 0.015820707892999053,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "A_clean",
+          "detector": "LSTM Autoencoder",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 1.0,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 0,
+          "test_tn": 360,
+          "fit_seconds": NaN,
+          "inference_seconds": 0.04181724996306002,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        }
+      ],
+      "per_type": {}
+    },
+    {
+      "key": "B_isolated_spikes",
+      "description": "Isolated spikes",
+      "evaluation_source": "separate unseen synthetic dataset (seed=143)",
+      "summary": {
+        "spike": 36,
+        "drop": 0,
+        "level_shift": 0,
+        "seasonal": 0,
+        "noise_burst": 0,
+        "drift": 0,
+        "missing": 0,
+        "flatline": 0,
+        "events": 36,
+        "anomaly_points": 36
+      },
+      "train_points": 840,
+      "test_points": 1200,
+      "rows": [
+        {
+          "scenario": "B_isolated_spikes",
+          "detector": "Z-Score",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.9722222222222222,
+          "test_f1": 0.9859154929577464,
+          "test_accuracy": 0.9991666666666666,
+          "test_fpr": 0.0,
+          "test_tp": 35,
+          "test_fp": 0,
+          "test_fn": 1,
+          "test_tn": 1164,
+          "fit_seconds": 2.11251899600029e-05,
+          "inference_seconds": 2.4625100195407867e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 35
+        },
+        {
+          "scenario": "B_isolated_spikes",
+          "detector": "MAD",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.2777777777777778,
+          "test_f1": 0.4347826086956522,
+          "test_accuracy": 0.9783333333333334,
+          "test_fpr": 0.0,
+          "test_tp": 10,
+          "test_fp": 0,
+          "test_fn": 26,
+          "test_tn": 1164,
+          "fit_seconds": 4.1165854781866074e-05,
+          "inference_seconds": 2.0832987502217293e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 10
+        },
+        {
+          "scenario": "B_isolated_spikes",
+          "detector": "Grubbs",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.4166666666666667,
+          "test_f1": 0.5882352941176471,
+          "test_accuracy": 0.9825,
+          "test_fpr": 0.0,
+          "test_tp": 15,
+          "test_fp": 0,
+          "test_fn": 21,
+          "test_tn": 1164,
+          "fit_seconds": 3.7509016692638397e-07,
+          "inference_seconds": 0.0011599159333854914,
+          "train_anomalies": 0,
+          "test_anomalies": 15
+        },
+        {
+          "scenario": "B_isolated_spikes",
+          "detector": "Isolation Forest",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.1722488038277512,
+          "test_recall": 1.0,
+          "test_f1": 0.2938775510204082,
+          "test_accuracy": 0.8558333333333333,
+          "test_fpr": 0.1486254295532646,
+          "test_tp": 36,
+          "test_fp": 173,
+          "test_fn": 0,
+          "test_tn": 991,
+          "fit_seconds": 0.04040224989876151,
+          "inference_seconds": 0.02028054208494723,
+          "train_anomalies": 42,
+          "test_anomalies": 209
+        },
+        {
+          "scenario": "B_isolated_spikes",
+          "detector": "Spectral Residual",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.9722222222222222,
+          "test_f1": 0.9859154929577464,
+          "test_accuracy": 0.9991666666666666,
+          "test_fpr": 0.0,
+          "test_tp": 35,
+          "test_fp": 0,
+          "test_fn": 1,
+          "test_tn": 1164,
+          "fit_seconds": 6.249174475669861e-07,
+          "inference_seconds": 0.0003114999271929264,
+          "train_anomalies": 0,
+          "test_anomalies": 35
+        },
+        {
+          "scenario": "B_isolated_spikes",
+          "detector": "Ensemble",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.9722222222222222,
+          "test_f1": 0.9859154929577464,
+          "test_accuracy": 0.9991666666666666,
+          "test_fpr": 0.0,
+          "test_tp": 35,
+          "test_fp": 0,
+          "test_fn": 1,
+          "test_tn": 1164,
+          "fit_seconds": 0.040072540985420346,
+          "inference_seconds": 0.0205979160964489,
+          "train_anomalies": 0,
+          "test_anomalies": 35
+        },
+        {
+          "scenario": "B_isolated_spikes",
+          "detector": "LSTM Autoencoder",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.10526315789473684,
+          "test_recall": 1.0,
+          "test_f1": 0.1904761904761905,
+          "test_accuracy": 0.745,
+          "test_fpr": 0.26288659793814434,
+          "test_tp": 36,
+          "test_fp": 306,
+          "test_fn": 0,
+          "test_tn": 858,
+          "fit_seconds": NaN,
+          "inference_seconds": 0.0716314590536058,
+          "train_anomalies": 0,
+          "test_anomalies": 342
+        }
+      ],
+      "per_type": {
+        "Z-Score": {
+          "spike": {
+            "n_true": 36,
+            "matched": 35,
+            "recall": 0.9722222222222222
+          }
+        },
+        "MAD": {
+          "spike": {
+            "n_true": 36,
+            "matched": 10,
+            "recall": 0.2777777777777778
+          }
+        },
+        "Grubbs": {
+          "spike": {
+            "n_true": 36,
+            "matched": 15,
+            "recall": 0.4166666666666667
+          }
+        },
+        "Isolation Forest": {
+          "spike": {
+            "n_true": 36,
+            "matched": 36,
+            "recall": 1.0
+          }
+        },
+        "Spectral Residual": {
+          "spike": {
+            "n_true": 36,
+            "matched": 35,
+            "recall": 0.9722222222222222
+          }
+        },
+        "Ensemble": {
+          "spike": {
+            "n_true": 36,
+            "matched": 35,
+            "recall": 0.9722222222222222
+          }
+        },
+        "LSTM Autoencoder": {
+          "spike": {
+            "n_true": 36,
+            "matched": 36,
+            "recall": 1.0
+          }
+        }
+      }
+    },
+    {
+      "key": "C_dense_spikes",
+      "description": "Densely packed spikes and drops",
+      "evaluation_source": "separate unseen synthetic dataset (seed=144)",
+      "summary": {
+        "spike": 49,
+        "drop": 47,
+        "level_shift": 0,
+        "seasonal": 0,
+        "noise_burst": 0,
+        "drift": 0,
+        "missing": 0,
+        "flatline": 0,
+        "events": 96,
+        "anomaly_points": 96
+      },
+      "train_points": 840,
+      "test_points": 1200,
+      "rows": [
+        {
+          "scenario": "C_dense_spikes",
+          "detector": "Z-Score",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.9270833333333334,
+          "test_f1": 0.9621621621621621,
+          "test_accuracy": 0.9941666666666666,
+          "test_fpr": 0.0,
+          "test_tp": 89,
+          "test_fp": 0,
+          "test_fn": 7,
+          "test_tn": 1104,
+          "fit_seconds": 1.9167084246873856e-05,
+          "inference_seconds": 2.4290988221764565e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 89
+        },
+        {
+          "scenario": "C_dense_spikes",
+          "detector": "MAD",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.4375,
+          "test_f1": 0.6086956521739131,
+          "test_accuracy": 0.955,
+          "test_fpr": 0.0,
+          "test_tp": 42,
+          "test_fp": 0,
+          "test_fn": 54,
+          "test_tn": 1104,
+          "fit_seconds": 4.262477159500122e-05,
+          "inference_seconds": 1.9958941265940666e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 42
+        },
+        {
+          "scenario": "C_dense_spikes",
+          "detector": "Grubbs",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.08333333333333333,
+          "test_f1": 0.15384615384615385,
+          "test_accuracy": 0.9266666666666666,
+          "test_fpr": 0.0,
+          "test_tp": 8,
+          "test_fp": 0,
+          "test_fn": 88,
+          "test_tn": 1104,
+          "fit_seconds": 3.7509016692638397e-07,
+          "inference_seconds": 0.0009039160795509815,
+          "train_anomalies": 0,
+          "test_anomalies": 8
+        },
+        {
+          "scenario": "C_dense_spikes",
+          "detector": "Isolation Forest",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.2240566037735849,
+          "test_recall": 0.9895833333333334,
+          "test_f1": 0.3653846153846154,
+          "test_accuracy": 0.725,
+          "test_fpr": 0.2980072463768116,
+          "test_tp": 95,
+          "test_fp": 329,
+          "test_fn": 1,
+          "test_tn": 775,
+          "fit_seconds": 0.04020604188553989,
+          "inference_seconds": 0.020760041195899248,
+          "train_anomalies": 42,
+          "test_anomalies": 424
+        },
+        {
+          "scenario": "C_dense_spikes",
+          "detector": "Spectral Residual",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.53125,
+          "test_f1": 0.6938775510204082,
+          "test_accuracy": 0.9625,
+          "test_fpr": 0.0,
+          "test_tp": 51,
+          "test_fp": 0,
+          "test_fn": 45,
+          "test_tn": 1104,
+          "fit_seconds": 5.420297384262085e-07,
+          "inference_seconds": 0.0002957500983029604,
+          "train_anomalies": 0,
+          "test_anomalies": 51
+        },
+        {
+          "scenario": "C_dense_spikes",
+          "detector": "Ensemble",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.9270833333333334,
+          "test_f1": 0.9621621621621621,
+          "test_accuracy": 0.9941666666666666,
+          "test_fpr": 0.0,
+          "test_tp": 89,
+          "test_fp": 0,
+          "test_fn": 7,
+          "test_tn": 1104,
+          "fit_seconds": 0.039902750169858336,
+          "inference_seconds": 0.02100029098801315,
+          "train_anomalies": 0,
+          "test_anomalies": 89
+        },
+        {
+          "scenario": "C_dense_spikes",
+          "detector": "LSTM Autoencoder",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.09213051823416507,
+          "test_recall": 1.0,
+          "test_f1": 0.16871704745166963,
+          "test_accuracy": 0.21166666666666667,
+          "test_fpr": 0.8568840579710145,
+          "test_tp": 96,
+          "test_fp": 946,
+          "test_fn": 0,
+          "test_tn": 158,
+          "fit_seconds": NaN,
+          "inference_seconds": 0.0714326249435544,
+          "train_anomalies": 0,
+          "test_anomalies": 1042
+        }
+      ],
+      "per_type": {
+        "Z-Score": {
+          "drop": {
+            "n_true": 47,
+            "matched": 46,
+            "recall": 0.9787234042553191
+          },
+          "spike": {
+            "n_true": 49,
+            "matched": 44,
+            "recall": 0.8979591836734694
+          }
+        },
+        "MAD": {
+          "drop": {
+            "n_true": 47,
+            "matched": 23,
+            "recall": 0.48936170212765956
+          },
+          "spike": {
+            "n_true": 49,
+            "matched": 24,
+            "recall": 0.4897959183673469
+          }
+        },
+        "Grubbs": {
+          "drop": {
+            "n_true": 47,
+            "matched": 6,
+            "recall": 0.1276595744680851
+          },
+          "spike": {
+            "n_true": 49,
+            "matched": 3,
+            "recall": 0.061224489795918366
+          }
+        },
+        "Isolation Forest": {
+          "drop": {
+            "n_true": 47,
+            "matched": 46,
+            "recall": 0.9787234042553191
+          },
+          "spike": {
+            "n_true": 49,
+            "matched": 49,
+            "recall": 1.0
+          }
+        },
+        "Spectral Residual": {
+          "drop": {
+            "n_true": 47,
+            "matched": 26,
+            "recall": 0.5531914893617021
+          },
+          "spike": {
+            "n_true": 49,
+            "matched": 30,
+            "recall": 0.6122448979591837
+          }
+        },
+        "Ensemble": {
+          "drop": {
+            "n_true": 47,
+            "matched": 46,
+            "recall": 0.9787234042553191
+          },
+          "spike": {
+            "n_true": 49,
+            "matched": 44,
+            "recall": 0.8979591836734694
+          }
+        },
+        "LSTM Autoencoder": {
+          "drop": {
+            "n_true": 47,
+            "matched": 47,
+            "recall": 1.0
+          },
+          "spike": {
+            "n_true": 49,
+            "matched": 49,
+            "recall": 1.0
+          }
+        }
+      }
+    },
+    {
+      "key": "D_level_shift",
+      "description": "Sudden level shifts",
+      "evaluation_source": "separate unseen synthetic dataset (seed=145)",
+      "summary": {
+        "spike": 0,
+        "drop": 0,
+        "level_shift": 103,
+        "seasonal": 0,
+        "noise_burst": 0,
+        "drift": 0,
+        "missing": 0,
+        "flatline": 0,
+        "events": 2,
+        "anomaly_points": 103
+      },
+      "train_points": 840,
+      "test_points": 1200,
+      "rows": [
+        {
+          "scenario": "D_level_shift",
+          "detector": "Z-Score",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.8349514563106796,
+          "test_f1": 0.91005291005291,
+          "test_accuracy": 0.9858333333333333,
+          "test_fpr": 0.0,
+          "test_tp": 86,
+          "test_fp": 0,
+          "test_fn": 17,
+          "test_tn": 1097,
+          "fit_seconds": 2.1582935005426407e-05,
+          "inference_seconds": 2.5582965463399887e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 86
+        },
+        {
+          "scenario": "D_level_shift",
+          "detector": "MAD",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.24271844660194175,
+          "test_f1": 0.39062500000000006,
+          "test_accuracy": 0.935,
+          "test_fpr": 0.0,
+          "test_tp": 25,
+          "test_fp": 0,
+          "test_fn": 78,
+          "test_tn": 1097,
+          "fit_seconds": 4.012486897408962e-05,
+          "inference_seconds": 1.8582912161946297e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 25
+        },
+        {
+          "scenario": "D_level_shift",
+          "detector": "Grubbs",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.9141666666666667,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 103,
+          "test_tn": 1097,
+          "fit_seconds": 3.3318065106868744e-07,
+          "inference_seconds": 0.0005773329176008701,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "D_level_shift",
+          "detector": "Isolation Forest",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.64375,
+          "test_recall": 1.0,
+          "test_f1": 0.7832699619771863,
+          "test_accuracy": 0.9525,
+          "test_fpr": 0.05195989061075661,
+          "test_tp": 103,
+          "test_fp": 57,
+          "test_fn": 0,
+          "test_tn": 1040,
+          "fit_seconds": 0.040484500117599964,
+          "inference_seconds": 0.019553916063159704,
+          "train_anomalies": 42,
+          "test_anomalies": 160
+        },
+        {
+          "scenario": "D_level_shift",
+          "detector": "Spectral Residual",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.9090909090909091,
+          "test_recall": 0.0970873786407767,
+          "test_f1": 0.17543859649122806,
+          "test_accuracy": 0.9216666666666666,
+          "test_fpr": 0.0009115770282588879,
+          "test_tp": 10,
+          "test_fp": 1,
+          "test_fn": 93,
+          "test_tn": 1096,
+          "fit_seconds": 5.00120222568512e-07,
+          "inference_seconds": 0.0002882089465856552,
+          "train_anomalies": 0,
+          "test_anomalies": 11
+        },
+        {
+          "scenario": "D_level_shift",
+          "detector": "Ensemble",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.8640776699029126,
+          "test_f1": 0.9270833333333333,
+          "test_accuracy": 0.9883333333333333,
+          "test_fpr": 0.0,
+          "test_tp": 89,
+          "test_fp": 0,
+          "test_fn": 14,
+          "test_tn": 1097,
+          "fit_seconds": 0.040083999978378415,
+          "inference_seconds": 0.019857458071783185,
+          "train_anomalies": 0,
+          "test_anomalies": 89
+        },
+        {
+          "scenario": "D_level_shift",
+          "detector": "LSTM Autoencoder",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.8728813559322034,
+          "test_recall": 1.0,
+          "test_f1": 0.9321266968325792,
+          "test_accuracy": 0.9875,
+          "test_fpr": 0.013673655423883319,
+          "test_tp": 103,
+          "test_fp": 15,
+          "test_fn": 0,
+          "test_tn": 1082,
+          "fit_seconds": NaN,
+          "inference_seconds": 0.07167566707357764,
+          "train_anomalies": 0,
+          "test_anomalies": 118
+        }
+      ],
+      "per_type": {
+        "Z-Score": {
+          "level_shift": {
+            "n_true": 103,
+            "matched": 86,
+            "recall": 0.8349514563106796
+          }
+        },
+        "MAD": {
+          "level_shift": {
+            "n_true": 103,
+            "matched": 25,
+            "recall": 0.24271844660194175
+          }
+        },
+        "Grubbs": {
+          "level_shift": {
+            "n_true": 103,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "Isolation Forest": {
+          "level_shift": {
+            "n_true": 103,
+            "matched": 103,
+            "recall": 1.0
+          }
+        },
+        "Spectral Residual": {
+          "level_shift": {
+            "n_true": 103,
+            "matched": 10,
+            "recall": 0.0970873786407767
+          }
+        },
+        "Ensemble": {
+          "level_shift": {
+            "n_true": 103,
+            "matched": 89,
+            "recall": 0.8640776699029126
+          }
+        },
+        "LSTM Autoencoder": {
+          "level_shift": {
+            "n_true": 103,
+            "matched": 103,
+            "recall": 1.0
+          }
+        }
+      }
+    },
+    {
+      "key": "E_drift",
+      "description": "Gradual drifts",
+      "evaluation_source": "separate unseen synthetic dataset (seed=146)",
+      "summary": {
+        "spike": 0,
+        "drop": 0,
+        "level_shift": 0,
+        "seasonal": 0,
+        "noise_burst": 0,
+        "drift": 118,
+        "missing": 0,
+        "flatline": 0,
+        "events": 2,
+        "anomaly_points": 118
+      },
+      "train_points": 840,
+      "test_points": 1200,
+      "rows": [
+        {
+          "scenario": "E_drift",
+          "detector": "Z-Score",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.2542372881355932,
+          "test_f1": 0.4054054054054054,
+          "test_accuracy": 0.9266666666666666,
+          "test_fpr": 0.0,
+          "test_tp": 30,
+          "test_fp": 0,
+          "test_fn": 88,
+          "test_tn": 1082,
+          "fit_seconds": 2.100015990436077e-05,
+          "inference_seconds": 2.445792779326439e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 30
+        },
+        {
+          "scenario": "E_drift",
+          "detector": "MAD",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.9016666666666666,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 118,
+          "test_tn": 1082,
+          "fit_seconds": 4.0207989513874054e-05,
+          "inference_seconds": 1.9208062440156937e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "E_drift",
+          "detector": "Grubbs",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.9016666666666666,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 118,
+          "test_tn": 1082,
+          "fit_seconds": 2.922024577856064e-07,
+          "inference_seconds": 0.0005665840581059456,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "E_drift",
+          "detector": "Isolation Forest",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.5821917808219178,
+          "test_recall": 0.7203389830508474,
+          "test_f1": 0.6439393939393939,
+          "test_accuracy": 0.9216666666666666,
+          "test_fpr": 0.056377079482439925,
+          "test_tp": 85,
+          "test_fp": 61,
+          "test_fn": 33,
+          "test_tn": 1021,
+          "fit_seconds": 0.040689875138923526,
+          "inference_seconds": 0.019627583911642432,
+          "train_anomalies": 42,
+          "test_anomalies": 146
+        },
+        {
+          "scenario": "E_drift",
+          "detector": "Spectral Residual",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.06779661016949153,
+          "test_f1": 0.12698412698412698,
+          "test_accuracy": 0.9083333333333333,
+          "test_fpr": 0.0,
+          "test_tp": 8,
+          "test_fp": 0,
+          "test_fn": 110,
+          "test_tn": 1082,
+          "fit_seconds": 7.080379873514175e-07,
+          "inference_seconds": 0.00033333292230963707,
+          "train_anomalies": 0,
+          "test_anomalies": 8
+        },
+        {
+          "scenario": "E_drift",
+          "detector": "Ensemble",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.2796610169491525,
+          "test_f1": 0.4370860927152318,
+          "test_accuracy": 0.9291666666666667,
+          "test_fpr": 0.0,
+          "test_tp": 33,
+          "test_fp": 0,
+          "test_fn": 85,
+          "test_tn": 1082,
+          "fit_seconds": 0.040938332909718156,
+          "inference_seconds": 0.020402582827955484,
+          "train_anomalies": 0,
+          "test_anomalies": 33
+        },
+        {
+          "scenario": "E_drift",
+          "detector": "LSTM Autoencoder",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.923728813559322,
+          "test_f1": 0.960352422907489,
+          "test_accuracy": 0.9925,
+          "test_fpr": 0.0,
+          "test_tp": 109,
+          "test_fp": 0,
+          "test_fn": 9,
+          "test_tn": 1082,
+          "fit_seconds": NaN,
+          "inference_seconds": 0.07191929197870195,
+          "train_anomalies": 0,
+          "test_anomalies": 109
+        }
+      ],
+      "per_type": {
+        "Z-Score": {
+          "drift": {
+            "n_true": 118,
+            "matched": 30,
+            "recall": 0.2542372881355932
+          }
+        },
+        "MAD": {
+          "drift": {
+            "n_true": 118,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "Grubbs": {
+          "drift": {
+            "n_true": 118,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "Isolation Forest": {
+          "drift": {
+            "n_true": 118,
+            "matched": 85,
+            "recall": 0.7203389830508474
+          }
+        },
+        "Spectral Residual": {
+          "drift": {
+            "n_true": 118,
+            "matched": 8,
+            "recall": 0.06779661016949153
+          }
+        },
+        "Ensemble": {
+          "drift": {
+            "n_true": 118,
+            "matched": 33,
+            "recall": 0.2796610169491525
+          }
+        },
+        "LSTM Autoencoder": {
+          "drift": {
+            "n_true": 118,
+            "matched": 109,
+            "recall": 0.923728813559322
+          }
+        }
+      }
+    },
+    {
+      "key": "F_noise_burst",
+      "description": "Localised noise bursts",
+      "evaluation_source": "separate unseen synthetic dataset (seed=147)",
+      "summary": {
+        "spike": 0,
+        "drop": 0,
+        "level_shift": 0,
+        "seasonal": 0,
+        "noise_burst": 85,
+        "drift": 0,
+        "missing": 0,
+        "flatline": 0,
+        "events": 5,
+        "anomaly_points": 85
+      },
+      "train_points": 840,
+      "test_points": 1200,
+      "rows": [
+        {
+          "scenario": "F_noise_burst",
+          "detector": "Z-Score",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.9291666666666667,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 85,
+          "test_tn": 1115,
+          "fit_seconds": 3.754091449081898e-05,
+          "inference_seconds": 2.8833048418164253e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "F_noise_burst",
+          "detector": "MAD",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.9291666666666667,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 85,
+          "test_tn": 1115,
+          "fit_seconds": 4.874984733760357e-05,
+          "inference_seconds": 2.2792024537920952e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "F_noise_burst",
+          "detector": "Grubbs",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.9291666666666667,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 85,
+          "test_tn": 1115,
+          "fit_seconds": 6.66128471493721e-07,
+          "inference_seconds": 0.0006184580270200968,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "F_noise_burst",
+          "detector": "Isolation Forest",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.625,
+          "test_recall": 1.0,
+          "test_f1": 0.7692307692307693,
+          "test_accuracy": 0.9575,
+          "test_fpr": 0.045739910313901344,
+          "test_tp": 85,
+          "test_fp": 51,
+          "test_fn": 0,
+          "test_tn": 1064,
+          "fit_seconds": 0.04043233301490545,
+          "inference_seconds": 0.0202240829821676,
+          "train_anomalies": 42,
+          "test_anomalies": 136
+        },
+        {
+          "scenario": "F_noise_burst",
+          "detector": "Spectral Residual",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.09411764705882353,
+          "test_f1": 0.17204301075268816,
+          "test_accuracy": 0.9358333333333333,
+          "test_fpr": 0.0,
+          "test_tp": 8,
+          "test_fp": 0,
+          "test_fn": 77,
+          "test_tn": 1115,
+          "fit_seconds": 5.41098415851593e-07,
+          "inference_seconds": 0.00029891706071794033,
+          "train_anomalies": 0,
+          "test_anomalies": 8
+        },
+        {
+          "scenario": "F_noise_burst",
+          "detector": "Ensemble",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.09411764705882353,
+          "test_f1": 0.17204301075268816,
+          "test_accuracy": 0.9358333333333333,
+          "test_fpr": 0.0,
+          "test_tp": 8,
+          "test_fp": 0,
+          "test_fn": 77,
+          "test_tn": 1115,
+          "fit_seconds": 0.04025679198093712,
+          "inference_seconds": 0.020447416929528117,
+          "train_anomalies": 0,
+          "test_anomalies": 8
+        },
+        {
+          "scenario": "F_noise_burst",
+          "detector": "LSTM Autoencoder",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.9411764705882353,
+          "test_f1": 0.9696969696969697,
+          "test_accuracy": 0.9958333333333333,
+          "test_fpr": 0.0,
+          "test_tp": 80,
+          "test_fp": 0,
+          "test_fn": 5,
+          "test_tn": 1115,
+          "fit_seconds": NaN,
+          "inference_seconds": 0.07124341605231166,
+          "train_anomalies": 0,
+          "test_anomalies": 80
+        }
+      ],
+      "per_type": {
+        "Z-Score": {
+          "noise_burst": {
+            "n_true": 85,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "MAD": {
+          "noise_burst": {
+            "n_true": 85,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "Grubbs": {
+          "noise_burst": {
+            "n_true": 85,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "Isolation Forest": {
+          "noise_burst": {
+            "n_true": 85,
+            "matched": 85,
+            "recall": 1.0
+          }
+        },
+        "Spectral Residual": {
+          "noise_burst": {
+            "n_true": 85,
+            "matched": 8,
+            "recall": 0.09411764705882353
+          }
+        },
+        "Ensemble": {
+          "noise_burst": {
+            "n_true": 85,
+            "matched": 8,
+            "recall": 0.09411764705882353
+          }
+        },
+        "LSTM Autoencoder": {
+          "noise_burst": {
+            "n_true": 85,
+            "matched": 80,
+            "recall": 0.9411764705882353
+          }
+        }
+      }
+    },
+    {
+      "key": "G_flatline",
+      "description": "Stuck sensor / flatline",
+      "evaluation_source": "separate unseen synthetic dataset (seed=148)",
+      "summary": {
+        "spike": 0,
+        "drop": 0,
+        "level_shift": 0,
+        "seasonal": 0,
+        "noise_burst": 0,
+        "drift": 0,
+        "missing": 0,
+        "flatline": 54,
+        "events": 3,
+        "anomaly_points": 54
+      },
+      "train_points": 840,
+      "test_points": 1200,
+      "rows": [
+        {
+          "scenario": "G_flatline",
+          "detector": "Z-Score",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.955,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 54,
+          "test_tn": 1146,
+          "fit_seconds": 2.008303999900818e-05,
+          "inference_seconds": 2.483394928276539e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "G_flatline",
+          "detector": "MAD",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.955,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 54,
+          "test_tn": 1146,
+          "fit_seconds": 3.870786167681217e-05,
+          "inference_seconds": 1.8624821677803993e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "G_flatline",
+          "detector": "Grubbs",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.955,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 54,
+          "test_tn": 1146,
+          "fit_seconds": 3.748573362827301e-07,
+          "inference_seconds": 0.000570832984521985,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "G_flatline",
+          "detector": "Isolation Forest",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.27906976744186046,
+          "test_recall": 0.4444444444444444,
+          "test_f1": 0.34285714285714286,
+          "test_accuracy": 0.9233333333333333,
+          "test_fpr": 0.05410122164048865,
+          "test_tp": 24,
+          "test_fp": 62,
+          "test_fn": 30,
+          "test_tn": 1084,
+          "fit_seconds": 0.04061654186807573,
+          "inference_seconds": 0.019813875202089548,
+          "train_anomalies": 42,
+          "test_anomalies": 86
+        },
+        {
+          "scenario": "G_flatline",
+          "detector": "Spectral Residual",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.875,
+          "test_recall": 0.12962962962962962,
+          "test_f1": 0.22580645161290322,
+          "test_accuracy": 0.96,
+          "test_fpr": 0.0008726003490401396,
+          "test_tp": 7,
+          "test_fp": 1,
+          "test_fn": 47,
+          "test_tn": 1145,
+          "fit_seconds": 1.2498348951339722e-06,
+          "inference_seconds": 0.00031095906160771847,
+          "train_anomalies": 0,
+          "test_anomalies": 8
+        },
+        {
+          "scenario": "G_flatline",
+          "detector": "Ensemble",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.8,
+          "test_recall": 0.07407407407407407,
+          "test_f1": 0.13559322033898305,
+          "test_accuracy": 0.9575,
+          "test_fpr": 0.0008726003490401396,
+          "test_tp": 4,
+          "test_fp": 1,
+          "test_fn": 50,
+          "test_tn": 1145,
+          "fit_seconds": 0.04003554116934538,
+          "inference_seconds": 0.02025633305311203,
+          "train_anomalies": 0,
+          "test_anomalies": 5
+        },
+        {
+          "scenario": "G_flatline",
+          "detector": "LSTM Autoencoder",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.86,
+          "test_recall": 0.7962962962962963,
+          "test_f1": 0.826923076923077,
+          "test_accuracy": 0.985,
+          "test_fpr": 0.006108202443280977,
+          "test_tp": 43,
+          "test_fp": 7,
+          "test_fn": 11,
+          "test_tn": 1139,
+          "fit_seconds": NaN,
+          "inference_seconds": 0.07086195889860392,
+          "train_anomalies": 0,
+          "test_anomalies": 50
+        }
+      ],
+      "per_type": {
+        "Z-Score": {
+          "flatline": {
+            "n_true": 54,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "MAD": {
+          "flatline": {
+            "n_true": 54,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "Grubbs": {
+          "flatline": {
+            "n_true": 54,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "Isolation Forest": {
+          "flatline": {
+            "n_true": 54,
+            "matched": 24,
+            "recall": 0.4444444444444444
+          }
+        },
+        "Spectral Residual": {
+          "flatline": {
+            "n_true": 54,
+            "matched": 7,
+            "recall": 0.12962962962962962
+          }
+        },
+        "Ensemble": {
+          "flatline": {
+            "n_true": 54,
+            "matched": 4,
+            "recall": 0.07407407407407407
+          }
+        },
+        "LSTM Autoencoder": {
+          "flatline": {
+            "n_true": 54,
+            "matched": 43,
+            "recall": 0.7962962962962963
+          }
+        }
+      }
+    },
+    {
+      "key": "H_mixed_unseen",
+      "description": "Mixed anomaly types, unseen seed",
+      "evaluation_source": "separate unseen synthetic dataset (seed=149)",
+      "summary": {
+        "spike": 1,
+        "drop": 1,
+        "level_shift": 62,
+        "seasonal": 24,
+        "noise_burst": 11,
+        "drift": 0,
+        "missing": 7,
+        "flatline": 0,
+        "events": 6,
+        "anomaly_points": 106
+      },
+      "train_points": 840,
+      "test_points": 1200,
+      "rows": [
+        {
+          "scenario": "H_mixed_unseen",
+          "detector": "Z-Score",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.3490566037735849,
+          "test_f1": 0.5174825174825174,
+          "test_accuracy": 0.9425,
+          "test_fpr": 0.0,
+          "test_tp": 37,
+          "test_fp": 0,
+          "test_fn": 69,
+          "test_tn": 1094,
+          "fit_seconds": 1.9124941900372505e-05,
+          "inference_seconds": 3.404216840863228e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 37
+        },
+        {
+          "scenario": "H_mixed_unseen",
+          "detector": "MAD",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.9116666666666666,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 106,
+          "test_tn": 1094,
+          "fit_seconds": 4.3165870010852814e-05,
+          "inference_seconds": 2.3791799321770668e-05,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "H_mixed_unseen",
+          "detector": "Grubbs",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.0,
+          "test_recall": 0.0,
+          "test_f1": 0.0,
+          "test_accuracy": 0.9116666666666666,
+          "test_fpr": 0.0,
+          "test_tp": 0,
+          "test_fp": 0,
+          "test_fn": 106,
+          "test_tn": 1094,
+          "fit_seconds": 4.5890919864177704e-07,
+          "inference_seconds": 0.0005635840352624655,
+          "train_anomalies": 0,
+          "test_anomalies": 0
+        },
+        {
+          "scenario": "H_mixed_unseen",
+          "detector": "Isolation Forest",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.5436241610738255,
+          "test_recall": 0.7641509433962265,
+          "test_f1": 0.6352941176470588,
+          "test_accuracy": 0.9225,
+          "test_fpr": 0.062157221206581355,
+          "test_tp": 81,
+          "test_fp": 68,
+          "test_fn": 25,
+          "test_tn": 1026,
+          "fit_seconds": 0.040727749932557344,
+          "inference_seconds": 0.01999141601845622,
+          "train_anomalies": 42,
+          "test_anomalies": 149
+        },
+        {
+          "scenario": "H_mixed_unseen",
+          "detector": "Spectral Residual",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.9333333333333333,
+          "test_recall": 0.1320754716981132,
+          "test_f1": 0.23140495867768596,
+          "test_accuracy": 0.9225,
+          "test_fpr": 0.0009140767824497258,
+          "test_tp": 14,
+          "test_fp": 1,
+          "test_fn": 92,
+          "test_tn": 1093,
+          "fit_seconds": 6.249174475669861e-07,
+          "inference_seconds": 0.00029266602359712124,
+          "train_anomalies": 0,
+          "test_anomalies": 15
+        },
+        {
+          "scenario": "H_mixed_unseen",
+          "detector": "Ensemble",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 1.0,
+          "test_recall": 0.44339622641509435,
+          "test_f1": 0.6143790849673203,
+          "test_accuracy": 0.9508333333333333,
+          "test_fpr": 0.0,
+          "test_tp": 47,
+          "test_fp": 0,
+          "test_fn": 59,
+          "test_tn": 1094,
+          "fit_seconds": 0.04013829119503498,
+          "inference_seconds": 0.02050937502644956,
+          "train_anomalies": 0,
+          "test_anomalies": 47
+        },
+        {
+          "scenario": "H_mixed_unseen",
+          "detector": "LSTM Autoencoder",
+          "train_precision": 0.0,
+          "train_recall": 0.0,
+          "train_f1": 0.0,
+          "test_precision": 0.9711538461538461,
+          "test_recall": 0.9528301886792453,
+          "test_f1": 0.9619047619047619,
+          "test_accuracy": 0.9933333333333333,
+          "test_fpr": 0.002742230347349177,
+          "test_tp": 101,
+          "test_fp": 3,
+          "test_fn": 5,
+          "test_tn": 1091,
+          "fit_seconds": NaN,
+          "inference_seconds": 0.07122649997472763,
+          "train_anomalies": 0,
+          "test_anomalies": 104
+        }
+      ],
+      "per_type": {
+        "Z-Score": {
+          "drop": {
+            "n_true": 1,
+            "matched": 1,
+            "recall": 1.0
+          },
+          "level_shift": {
+            "n_true": 62,
+            "matched": 36,
+            "recall": 0.5806451612903226
+          },
+          "missing": {
+            "n_true": 7,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "noise_burst": {
+            "n_true": 11,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "seasonal": {
+            "n_true": 24,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "spike": {
+            "n_true": 1,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "MAD": {
+          "drop": {
+            "n_true": 1,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "level_shift": {
+            "n_true": 62,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "missing": {
+            "n_true": 7,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "noise_burst": {
+            "n_true": 11,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "seasonal": {
+            "n_true": 24,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "spike": {
+            "n_true": 1,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "Grubbs": {
+          "drop": {
+            "n_true": 1,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "level_shift": {
+            "n_true": 62,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "missing": {
+            "n_true": 7,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "noise_burst": {
+            "n_true": 11,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "seasonal": {
+            "n_true": 24,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "spike": {
+            "n_true": 1,
+            "matched": 0,
+            "recall": 0.0
+          }
+        },
+        "Isolation Forest": {
+          "drop": {
+            "n_true": 1,
+            "matched": 1,
+            "recall": 1.0
+          },
+          "level_shift": {
+            "n_true": 62,
+            "matched": 62,
+            "recall": 1.0
+          },
+          "missing": {
+            "n_true": 7,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "noise_burst": {
+            "n_true": 11,
+            "matched": 11,
+            "recall": 1.0
+          },
+          "seasonal": {
+            "n_true": 24,
+            "matched": 6,
+            "recall": 0.25
+          },
+          "spike": {
+            "n_true": 1,
+            "matched": 1,
+            "recall": 1.0
+          }
+        },
+        "Spectral Residual": {
+          "drop": {
+            "n_true": 1,
+            "matched": 1,
+            "recall": 1.0
+          },
+          "level_shift": {
+            "n_true": 62,
+            "matched": 6,
+            "recall": 0.0967741935483871
+          },
+          "missing": {
+            "n_true": 7,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "noise_burst": {
+            "n_true": 11,
+            "matched": 4,
+            "recall": 0.36363636363636365
+          },
+          "seasonal": {
+            "n_true": 24,
+            "matched": 2,
+            "recall": 0.08333333333333333
+          },
+          "spike": {
+            "n_true": 1,
+            "matched": 1,
+            "recall": 1.0
+          }
+        },
+        "Ensemble": {
+          "drop": {
+            "n_true": 1,
+            "matched": 1,
+            "recall": 1.0
+          },
+          "level_shift": {
+            "n_true": 62,
+            "matched": 39,
+            "recall": 0.6290322580645161
+          },
+          "missing": {
+            "n_true": 7,
+            "matched": 0,
+            "recall": 0.0
+          },
+          "noise_burst": {
+            "n_true": 11,
+            "matched": 4,
+            "recall": 0.36363636363636365
+          },
+          "seasonal": {
+            "n_true": 24,
+            "matched": 2,
+            "recall": 0.08333333333333333
+          },
+          "spike": {
+            "n_true": 1,
+            "matched": 1,
+            "recall": 1.0
+          }
+        },
+        "LSTM Autoencoder": {
+          "drop": {
+            "n_true": 1,
+            "matched": 1,
+            "recall": 1.0
+          },
+          "level_shift": {
+            "n_true": 62,
+            "matched": 62,
+            "recall": 1.0
+          },
+          "missing": {
+            "n_true": 7,
+            "matched": 4,
+            "recall": 0.5714285714285714
+          },
+          "noise_burst": {
+            "n_true": 11,
+            "matched": 9,
+            "recall": 0.8181818181818182
+          },
+          "seasonal": {
+            "n_true": 24,
+            "matched": 24,
+            "recall": 1.0
+          },
+          "spike": {
+            "n_true": 1,
+            "matched": 1,
+            "recall": 1.0
+          }
+        }
+      }
+    }
+  ],
+  "unlabelled_csv": {
+    "status": "ok",
+    "input": "examples/example_unlabelled.csv",
+    "points": 600,
+    "has_labels": false,
+    "flagged": 47,
+    "flagged_ratio": 0.07833333333333334,
+    "score_min": 0.0047049261684765165,
+    "score_max": 1.0,
+    "threshold": 0.02986891692251608,
+    "predictions_csv": "reports/unlabelled_predictions.csv",
+    "note": "Unlabelled inference: predictions and scores only. Precision, recall and F1 are deliberately omitted."
+  }
+}

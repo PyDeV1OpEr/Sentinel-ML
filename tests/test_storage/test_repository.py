@@ -1,7 +1,8 @@
+from datetime import datetime
+
 import pytest
 
 from spectral.pipeline.runner import Anomaly
-from datetime import datetime
 
 
 class TestAnomalyRepository:

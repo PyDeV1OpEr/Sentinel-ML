@@ -3,7 +3,6 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-from datetime import datetime
 
 from fastapi import WebSocket, WebSocketDisconnect
 
@@ -24,7 +23,9 @@ class ConnectionManager:
         logger.info(f"WebSocket connected, total={len(self._connections)}")
 
     def disconnect(self, websocket: WebSocket):
-        self._connections.remove(websocket)
+        # A failed send may already have removed this socket.
+        if websocket in self._connections:
+            self._connections.remove(websocket)
         logger.info(f"WebSocket disconnected, total={len(self._connections)}")
 
     async def broadcast_anomaly(self, anomaly: Anomaly, series_id: str = "default"):
@@ -54,7 +55,7 @@ class ConnectionManager:
                 disconnected.append(ws)
 
         for ws in disconnected:
-            self._connections.remove(ws)
+            self.disconnect(ws)
 
     @property
     def active_count(self) -> int:
@@ -82,4 +83,6 @@ async def websocket_endpoint(websocket: WebSocket):
                 # send heartbeat
                 await websocket.send_text(json.dumps({"type": "heartbeat"}))
     except WebSocketDisconnect:
+        pass
+    finally:
         manager.disconnect(websocket)

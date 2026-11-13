@@ -9,6 +9,30 @@ import numpy as np
 logger = logging.getLogger(__name__)
 
 
+def validate_series(
+    data: np.ndarray, *, min_points: int = 2, name: str = "data"
+) -> np.ndarray:
+    """Return ``data`` as a finite 1D float array or raise a clear error.
+
+    Detectors are deliberately strict about their input: the pipeline's
+    preprocessor owns imputation, and silently propagating NaN/inf produces
+    meaningless scores. Two points is the minimum at which a spread can be
+    estimated; Grubbs and the LSTM raise their own, higher minimums.
+    """
+    array = np.asarray(data, dtype=np.float64)
+    if array.ndim != 1:
+        raise ValueError(f"{name} must be a 1D array, got shape {array.shape}")
+    if array.size < min_points:
+        raise ValueError(
+            f"{name} must contain at least {min_points} points, got {array.size}"
+        )
+    if not np.isfinite(array).all():
+        raise ValueError(
+            f"{name} must contain only finite values; impute or drop NaN/inf first"
+        )
+    return array
+
+
 @dataclass
 class DetectionResult:
     """Result from running a detector on a time series.

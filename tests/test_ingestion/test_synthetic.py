@@ -1,5 +1,4 @@
 import numpy as np
-import pytest
 
 from spectral.ingestion.synthetic import SyntheticSource
 
@@ -22,7 +21,9 @@ class TestSyntheticSource:
 
     def test_sine_pattern(self):
         source = SyntheticSource(seed=42)
-        points, _ = source.generate(n_points=200, patterns=["sine"], noise_level=0.0, anomaly_ratio=0.0)
+        points, _ = source.generate(
+            n_points=200, patterns=["sine"], noise_level=0.0, anomaly_ratio=0.0
+        )
 
         values = np.array([p.value for p in points])
         # should have periodic structure

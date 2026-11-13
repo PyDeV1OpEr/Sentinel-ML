@@ -3,7 +3,9 @@ import pytest
 from fastapi.testclient import TestClient
 
 from spectral.api.app import create_app
-from spectral.api.dependencies import set_pipeline
+from spectral.api.dependencies import set_pipeline, set_service
+from spectral.api.service import DetectionService
+from spectral.api.websocket import manager
 from spectral.config import get_default_config
 from spectral.pipeline.runner import Pipeline
 
@@ -11,16 +13,18 @@ from spectral.pipeline.runner import Pipeline
 @pytest.fixture
 def client():
     app = create_app()
-    config = get_default_config()
-    pipeline = Pipeline(config)
-    # fit on some data so it's ready
-    rng = np.random.default_rng(42)
-    train = np.sin(np.arange(500) * 0.1) + rng.standard_normal(500) * 0.1
-    pipeline.fit(train)
-    set_pipeline(pipeline)
-
     with TestClient(app) as c:
+        # Startup installs its own service; replace it with one that shares the
+        # fitted pipeline and has no database dependency.
+        config = get_default_config()
+        pipeline = Pipeline(config)
+        rng = np.random.default_rng(42)
+        train = np.sin(np.arange(500) * 0.1) + rng.standard_normal(500) * 0.1
+        pipeline.fit(train)
+        set_pipeline(pipeline)
+        set_service(DetectionService(pipeline, broadcaster=manager))
         yield c
+    set_service(None)
 
 
 class TestRoutes:
@@ -31,6 +35,7 @@ class TestRoutes:
         assert "name" in data
         assert "state" in data
         assert "detectors" in data
+        assert data["uptime_seconds"] >= 0
 
     def test_detect_batch(self, client):
         # create data with an obvious anomaly
@@ -74,3 +79,21 @@ class TestRoutes:
             "/detect", json={"values": values, "timestamps": timestamps}
         )
         assert response.status_code == 200
+
+    def test_detect_rejects_mismatched_timestamps(self, client):
+        response = client.post(
+            "/detect",
+            json={"values": [1.0, 2.0], "timestamps": ["2026-01-01T00:00:00"]},
+        )
+        assert response.status_code == 422
+
+    def test_detect_rejects_non_finite_values(self, client):
+        # JSON does not allow NaN; send a string that Pydantic must reject.
+        response = client.post("/detect", json={"values": [1.0, "not-a-number"]})
+        assert response.status_code == 422
+
+    def test_storage_disabled_is_explicit(self, client):
+        assert client.get("/anomalies").status_code == 503
+        metrics = client.get("/metrics").json()
+        assert metrics["storage_enabled"] is False
+        assert metrics["anomalies"]["total_anomalies"] == 0

@@ -1,9 +1,9 @@
 from spectral.detectors.base import BaseDetector, DetectionResult
-from spectral.detectors.statistical import ZScoreDetector, MADDetector, GrubbsDetector
-from spectral.detectors.isolation_forest import IsolationForestDetector
-from spectral.detectors.spectral_residual import SpectralResidualDetector
-from spectral.detectors.lstm_autoencoder import LSTMAutoencoderDetector
 from spectral.detectors.ensemble import EnsembleDetector
+from spectral.detectors.isolation_forest import IsolationForestDetector
+from spectral.detectors.lstm_autoencoder import LSTMAutoencoderDetector
+from spectral.detectors.spectral_residual import SpectralResidualDetector
+from spectral.detectors.statistical import GrubbsDetector, MADDetector, ZScoreDetector
 
 DETECTORS = {
     "zscore": ZScoreDetector,

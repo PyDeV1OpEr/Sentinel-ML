@@ -1,5 +1,4 @@
 import numpy as np
-import pytest
 
 from spectral.detectors.statistical import GrubbsDetector, MADDetector, ZScoreDetector
 
@@ -68,7 +67,6 @@ class TestMADDetector:
         # inject a moderate anomaly
         data[250] = 5.0
 
-        zscore = ZScoreDetector(threshold=3.0).fit_detect(data)
         mad = MADDetector(threshold=3.5).fit_detect(data)
 
         # MAD should still detect the moderate anomaly even with extreme training outliers

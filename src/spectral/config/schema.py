@@ -31,7 +31,9 @@ class AlertingConfig(BaseModel):
 
 
 class StorageConfig(BaseModel):
-    enabled: bool = True
+    # Off by default so a fresh clone runs without PostgreSQL. Enable it and
+    # set DATABASE_URL for persisted anomalies and the query endpoints.
+    enabled: bool = False
     batch_size: int = 500
 
 

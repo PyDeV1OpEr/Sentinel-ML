@@ -1,9 +1,8 @@
+
 import pytest
 import yaml
-from pathlib import Path
 
 from spectral.config.loader import get_default_config, load_config
-from spectral.config.schema import PipelineConfig
 
 
 class TestConfigLoader:

@@ -1,7 +1,5 @@
 import csv
-import tempfile
 from datetime import datetime
-from pathlib import Path
 
 import pytest
 
@@ -57,7 +55,9 @@ class TestCSVSource:
             writer.writerow(["ts", "reading", "sensor"])
             writer.writerow(["2026-01-01T00:00:00", "42.5", "temp-1"])
 
-        source = CSVSource(csv_file, timestamp_col="ts", value_col="reading", series_id_col="sensor")
+        source = CSVSource(
+            csv_file, timestamp_col="ts", value_col="reading", series_id_col="sensor"
+        )
         points = list(source.read())
 
         assert len(points) == 1

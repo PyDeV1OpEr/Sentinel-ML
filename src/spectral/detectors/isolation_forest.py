@@ -5,7 +5,7 @@ import logging
 import numpy as np
 from sklearn.ensemble import IsolationForest
 
-from spectral.detectors.base import BaseDetector, DetectionResult
+from spectral.detectors.base import BaseDetector, DetectionResult, validate_series
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +57,7 @@ class IsolationForestDetector(BaseDetector):
         return features
 
     def fit(self, data: np.ndarray) -> IsolationForestDetector:
-        data = np.asarray(data, dtype=np.float64)
+        data = validate_series(data)
         features = self._build_features(data)
 
         self._model = IsolationForest(
@@ -75,7 +75,7 @@ class IsolationForestDetector(BaseDetector):
         return self
 
     def detect(self, data: np.ndarray) -> DetectionResult:
-        data = np.asarray(data, dtype=np.float64)
+        data = validate_series(data)
         if not self._fitted:
             self.fit(data)
 

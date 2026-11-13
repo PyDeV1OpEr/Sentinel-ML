@@ -10,7 +10,7 @@ from spectral.config.schema import PipelineConfig
 from spectral.detectors import create_detector
 from spectral.detectors.ensemble import EnsembleDetector
 from spectral.pipeline.preprocessing import Preprocessor
-from spectral.pipeline.window import SlidingWindow, StreamBuffer
+from spectral.pipeline.window import StreamBuffer
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +49,9 @@ class Pipeline:
     def __init__(self, config: PipelineConfig):
         self.config = config
         self._preprocessor = Preprocessor(
-            normalize_method=config.preprocessing.method if config.preprocessing.normalize else None,
+            normalize_method=(
+                config.preprocessing.method if config.preprocessing.normalize else None
+            ),
             should_detrend=config.preprocessing.detrend,
             seasonal_period=(
                 config.preprocessing.seasonal_period

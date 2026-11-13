@@ -1,5 +1,4 @@
 import numpy as np
-import pytest
 
 from spectral.detectors.spectral_residual import SpectralResidualDetector
 

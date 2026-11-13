@@ -5,7 +5,7 @@ import logging
 import numpy as np
 from scipy.fft import fft, ifft
 
-from spectral.detectors.base import BaseDetector, DetectionResult
+from spectral.detectors.base import BaseDetector, DetectionResult, validate_series
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +74,7 @@ class SpectralResidualDetector(BaseDetector):
         return saliency.real
 
     def detect(self, data: np.ndarray) -> DetectionResult:
-        data = np.asarray(data, dtype=np.float64)
+        data = validate_series(data)
 
         residual, phase = self._spectral_residual(data)
         saliency = self._saliency_map(residual, phase)

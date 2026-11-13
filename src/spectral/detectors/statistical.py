@@ -5,7 +5,7 @@ import logging
 import numpy as np
 from scipy import stats
 
-from spectral.detectors.base import BaseDetector, DetectionResult
+from spectral.detectors.base import BaseDetector, DetectionResult, validate_series
 
 logger = logging.getLogger(__name__)
 
@@ -24,9 +24,9 @@ class ZScoreDetector(BaseDetector):
         self._std = None
 
     def fit(self, data: np.ndarray) -> ZScoreDetector:
-        data = np.asarray(data, dtype=np.float64)
-        self._mean = np.nanmean(data)
-        self._std = np.nanstd(data)
+        data = validate_series(data)
+        self._mean = np.mean(data)
+        self._std = np.std(data)
         if self._std == 0:
             self._std = 1e-10
         self._fitted = True
@@ -34,7 +34,7 @@ class ZScoreDetector(BaseDetector):
         return self
 
     def detect(self, data: np.ndarray) -> DetectionResult:
-        data = np.asarray(data, dtype=np.float64)
+        data = validate_series(data)
         if not self._fitted:
             self.fit(data)
 
@@ -72,9 +72,9 @@ class MADDetector(BaseDetector):
         self._mad = None
 
     def fit(self, data: np.ndarray) -> MADDetector:
-        data = np.asarray(data, dtype=np.float64)
-        self._median = np.nanmedian(data)
-        self._mad = np.nanmedian(np.abs(data - self._median))
+        data = validate_series(data)
+        self._median = np.median(data)
+        self._mad = np.median(np.abs(data - self._median))
         if self._mad == 0:
             self._mad = 1e-10
         self._fitted = True
@@ -82,7 +82,7 @@ class MADDetector(BaseDetector):
         return self
 
     def detect(self, data: np.ndarray) -> DetectionResult:
-        data = np.asarray(data, dtype=np.float64)
+        data = validate_series(data)
         if not self._fitted:
             self.fit(data)
 
@@ -123,7 +123,7 @@ class GrubbsDetector(BaseDetector):
         return self
 
     def detect(self, data: np.ndarray) -> DetectionResult:
-        data = np.asarray(data, dtype=np.float64)
+        data = validate_series(data, min_points=3)
         n = len(data)
         labels = np.zeros(n, dtype=int)
         scores = np.zeros(n, dtype=np.float64)

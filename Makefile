@@ -28,7 +28,7 @@ generate:
 	spectral generate --points 5000 --anomaly-ratio 0.03 --output data/synthetic.csv
 
 detect:
-	spectral detect data/synthetic.csv --config configs/default.yml --config configs/default.yml
+	spectral detect data/synthetic.csv --config configs/default.yml
 
 clean:
 	rm -rf dist/ build/ *.egg-info .pytest_cache htmlcov .coverage

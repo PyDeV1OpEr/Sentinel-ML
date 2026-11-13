@@ -13,7 +13,9 @@ class EnsembleDetector:
     """Combines multiple detectors using voting, averaging, or max strategies.
 
     Not a BaseDetector subclass since it orchestrates other detectors
-    rather than implementing its own detection logic.
+    rather than implementing its own detection logic. It still mirrors the
+    detector lifecycle (``fit``, ``detect``, ``fit_detect``, ``name``) so it
+    can be used wherever a single detector is expected.
     """
 
     METHODS = ("voting", "average", "max")
@@ -43,6 +45,26 @@ class EnsembleDetector:
         for detector in self.detectors:
             detector.fit(data)
         return self
+
+    def fit_detect(self, data: np.ndarray) -> DetectionResult:
+        """Fit every constituent detector on ``data``, then detect in one pass.
+
+        Mirrors :meth:`BaseDetector.fit_detect`. The ensemble does not inherit
+        from ``BaseDetector`` because it delegates detection rather than
+        implementing it, so the convenience method is provided explicitly.
+
+        Constituent detectors are fitted on the same data that is scored, so
+        this is an in-sample convenience path. Fit on a clean baseline and
+        call :meth:`detect` separately when scoring held-out data.
+
+        Args:
+            data: 1D array of time-series values.
+
+        Returns:
+            DetectionResult combining the constituent detectors' output.
+        """
+        self.fit(data)
+        return self.detect(data)
 
     def detect(self, data: np.ndarray) -> DetectionResult:
         results = []
